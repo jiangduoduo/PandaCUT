@@ -19,3 +19,10 @@
 ##English Doc ?
 
 I will do it futrue.
+
+------------
+
+如果有任何意见或建议或使用不明之处,可以提issues,或者可发我的邮箱:
+jiangnanxing@threebodytech.com
+
+另外我们在北京招聘热爱金属材质和拟真风格的设计师,如果你有兴趣,也可向这个邮箱发邮件.
