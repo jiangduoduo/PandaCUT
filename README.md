@@ -288,6 +288,46 @@
 ##能不能再给力一点啊,老湿?
 
 
+当然能! 只要按照我们之前的原则,我们可以玩出各种花样! 例如,有时候我们
+需要底图不变而按钮上的文字内容变,我们可以这样玩:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/b1.png)
+
+
+建立五个不同的按钮上的字样图层,写不同的文本内容,打上不同的标签,将按钮本身以及其底图
+设立"NEVER_HIDE"标签保证其永远不会隐藏:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/b3.png)
+
+
+执行脚本! 就点一下鼠标,看看我们得到了什么:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/b4.png)
+
+
+
+同理,我们可以利用同样的底色,在按钮之上添加几个用来修改颜色的调整图层,改名,加标签:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/b7.png)
+
+
+然后执行脚本! 点一下鼠标! 看看我们得到了什么:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/b8.png)
+
+
+
+-----------------
+
+
+##能不能再给力一点啊,老湿?
+
+
 每一次导出,根据位置,脚本都会自动生成一个txt文件,其中记录着各个文件的位置和大小,如果你是前端工程师,你应该知道我在说什么!
 
 
@@ -314,6 +354,7 @@
 
 + x2,x0.5支持
 + 点9图支持
++ 任何你能想到的需求!
 
 
 -----------------------------
@@ -329,4 +370,5 @@ I will do it futrue.
 nanxingjiang@gmail.com
 
 另外我们在北京招聘热爱金属材质和拟真风格的设计师,如果你有兴趣,也可向这个邮箱发邮件.
-或者您有朋友,同学,学生,徒弟亲戚是热爱金属材质和拟真风格的设计师,想找工作,也可以联系我们.
+或者您有朋友,同学,学生,徒弟亲戚是热爱金属材质和拟真风格的设计师,想找工作,甚至是相接外包美术
+工作,均可以联系我们!
