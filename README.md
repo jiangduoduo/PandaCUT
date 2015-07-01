@@ -3,7 +3,7 @@ a tool to help you cut .pngs from .psd
 
 ----------------
 
-(http://github.com/menzi11/PandaCUT/thePandaWhoCUT.png)
+(https://github.com/menzi11/PandaCUT/blob/master/thePandaWhoCUT.png)
 
 ----------------
 
