@@ -7,6 +7,9 @@
 ![image](https://github.com/menzi11/PandaCUT/blob/master/thePandaWhoCUT.png)
 
 
+-------------------
+
+
 ## 为什么需要一个新的切图工具?
 
 世界上有不少切图工具,但大部分是基于图层的切图,但事实上,我们经常会遇到
@@ -17,6 +20,9 @@
 > 本项目并不使用外部的工具,而是使用photoshop自带的javascript脚本功能,如果你不熟悉javascript,或者不熟悉photoshop如何调用脚本,这都没关系,后文中我们会提到.
 
 
+---------------------------
+
+
 ##那么,如何安装呢?
 
 
@@ -25,6 +31,8 @@
 
 ![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/0.png)
 
+
+-------------------------
 
 
 ## 那么,如何使用呢?
