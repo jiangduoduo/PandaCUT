@@ -17,7 +17,13 @@
 打开A和C图层导出,再隐藏A图层,打开C和B图层导出.如此批量导出图片,几乎是全自动化!
 你还可以设置无论怎么导出都不隐藏的图层,例如背景图层,曲线/亮度对比度调整图层.
 
-> 本项目并不使用外部的工具,而是使用photoshop自带的javascript脚本功能,如果你不熟悉javascript,或者不熟悉photoshop如何调用脚本,这都没关系,后文中我们会提到.
+> 本项目并不使用外部的工具,而是使用photoshop自带的javascript脚本功能,也就是说:
+> + 你不需要安装photoshop之外的任何东西
+> + 所有的第三方滤镜,素材什么的均可使用.
+> + 完全由photoshop渲染,就如同手动导出一模一样,photoshop里什么样,导出就什么样. 
+> + 性能? photoshop撑得住,PandaCUT就撑得住!
+
+ > *如果你不熟悉javascript,或者不熟悉photoshop如何调用脚本,这都没关系,后文中我们会提到.*
 
 
 ---------------------------
@@ -127,19 +133,20 @@
 ![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/15.png)
 
 
-我们再来回顾一下: 
+> 我们再来回顾一下: 
 
-在photoshop里顺序点击 文件->脚本->浏览，然后选择你本机PandaCUT.jsx的路径，运行后会弹出文件夹选择框，选择一个你用来保存导出图片的文件夹，然后等程序提示运行完成就可以了。
+> 在photoshop里顺序点击 文件->脚本->浏览，然后选择你本机PandaCUT.jsx的路径，运行后会弹出文件夹选择框，选择一个你用来保存导出图片的文件夹，然后等程序提示运行完成就可以了。
 
-导出图片的名字将和矢量图层名字一样，但是会自动去掉@字符，格式则为png。
+> 导出图片的名字将和矢量图层名字一样，但是会自动去掉@字符，格式则为png。
 
 
+------------------
 
 
 **"老湿,好是好,可是底板和背景哪里去了?**
 
 
-
+##同一个图层被多个标示共享
 
 
 由于底板图层和背景图层都没有所有没加过@button1标志,所以它们不会被导入到button1所对应的文件中.
@@ -165,35 +172,105 @@
 哈哈! 这回有啦!
 
 
-![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/18.png)
-
-
-
 > 每一个图层或组可以加多个标志，但标示必须符合以下规律:
 > + 标示的**起始**位置**必须**有一个"@"号.
 > + 紧跟在"@"后面的**一个不分割的词**为名字,不能有空格,逗号句号等标点.
 > + 不同的标示中间**必须**加一个空格,例如: "@button1 @button2"
 > + *在示例图中您会看到我在标示前面写了个冒号,实际上不写也行.*
 
+--------------------------------
 
-聪明的你可能会想到一个问题,假如我不是有2个按钮,而是有100个,那岂不是按钮底板图层要写好多好多标示来表明它在每一个文件中都不隐藏? 实际上这是不用的,如果你需要无论如何都不会隐藏的图层存在,只需要在这个图层的名称中加入特殊标志“@PandaCUT_NEVERHIDE”:
+##再加一个按钮试试?
+
+假如我们现在需要画一个新按钮,颜色不同,我们把原来的图层复制然后绘制一个新按钮,就像这个:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/18.png)
+
+
+想要导出它,只需要按照上文所述方式,添加一个"@button2"和"@button2_mask"标示即可:
 
 
 ![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/19.png)
 
 
+**"可是,底板怎么办?"**
+
+
+聪明的你可能会想到一个问题,假如我不是有2个按钮,而是有100个,那岂不是按钮底板图层要写好多好多标示来表明它在每一个文件中都不隐藏? 就像这样:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/20.png)
+
+
+实际上这是不用的,如果你需要无论如何都不会隐藏的图层存在,只需要在这个图层的名称中加入特殊标志“@PandaCUT_NEVERHIDE”:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/21.png)
+
+
 这样,无论我导出多少个文件,标示了"@PandaCUT_NEVERHIDE"的图层均不会隐藏!!
 
 
+导出一下,一共出来四个图! 都带着底板!
 
 
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/22.png)
 
-可以给图层或组的名字里加上这个标志，这样无论在截哪一个蒙版区域的时候，这个图层或组都会显示出来。
+
+----------------
 
 
-Example
-打开TestForPandaCUT.psd，可以看到有4个蒙版分别是:@green,@black,@yellow,@red; 运行脚本最终会得到4个png,这4个png分别和4个蒙版大小宽高相同，名字相同（除去@）。
-可以看到每个截图都只有自己名字的颜色和紫色，因为紫色的图层都是@PandaCUT_NEVERHIDE的所以每个截图都会有紫色。
+##调整图层? 没问题! 
+
+
+我们现在看看我们导出的图片.....恩,或许会显得有些"太亮了",在这种时候,除了破坏性编辑,
+我们还喜欢在工程的最上层添加"调整图层",比如调个色啊,调调对比度啊,这些一般都是位于最上层图层的.有"@PandaCUT_NEVERHIDE"在,这些都不是事! 
+
+
+添加曲线图层:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/23.png)
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/24.png)
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/25.png)
+
+导出吧!
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/26.png)
+
+
+再来个反色:
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/27.png)
+
+
+导出吧!
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/28.png)
+
+
+-----------------
+
+
+##能不能再给力一点啊,老湿?
+
+
+每一次导出,根据位置,脚本都会自动生成一个txt文件,其中记录着各个文件的位置和大小,如果你是前端工程师,你应该知道我在说什么!
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/29.png)
+
+
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/30.png)
+
+
+不过,因为我也不知道你对代码有何种需求,目前导出的格式是针对特定的GUI库的,如果你希望能再再给力一点,告诉我们!
+
 
 ##English Doc ?
 
