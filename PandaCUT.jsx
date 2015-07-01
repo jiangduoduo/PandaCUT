@@ -98,7 +98,8 @@ function showLayerByName(maskName) {
     var layersCount = layers.length;
     for (var i = 0; i < layersCount; ++i) {
         var name = layers[i].name;
-        var match = name.match(maskName);
+        var reg = new RegExp(maskName + "($|[\s@])");
+        var match = name.match(reg);
         if (match) layers[i].visible = true;
     }
 }
