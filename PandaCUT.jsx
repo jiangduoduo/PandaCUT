@@ -25,6 +25,8 @@ function main() {
         resetVisibleStatus();
         
         createConfigFile();
+        
+        alert("恭喜你，运行完成！！");
     } else {
         alert("没有选择文件夹，脚本退出");
     }
