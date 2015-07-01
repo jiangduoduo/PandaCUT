@@ -53,7 +53,7 @@
 看上去它是这样的:
 
 
-![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/1.png)
+![image](https://github.com/jiangduoduo/PandaCUT/blob/master/doc/2.png)
 
 
 然后,我又在它上面画了一个按钮:
