@@ -3,11 +3,7 @@
 一个photoshop CC的javascript脚本,可以帮助任何被PS切图折磨的人
 进行自动的,批量的,跨越图层的切图.
 
-----------------
-
 ![image](https://github.com/menzi11/PandaCUT/blob/master/thePandaWhoCUT.png)
-
-----------------
 
 ## 为什么需要一个新的切图工具?
 
