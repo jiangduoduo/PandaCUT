@@ -15,14 +15,16 @@ if(maskSets)  {
 
 function main() {
     if (setInputFolder()) {
+        var layers = ad.layers;
         
         getMaskDatas();
         
-        saveLayersStatus();
+        saveLayersStatus(layers);
         
         cutPictures();
         
-        resetVisibleStatus();
+        var countObj = {count:0};
+        resetVisibleStatus(layers, countObj);
         
         createConfigFile();
         
@@ -51,21 +53,26 @@ function getMaskDatas() {
 }
 
 /**存储所有图层的显示状态**/
-function saveLayersStatus() {
-    var layers = ad.layers;
-    var layersCount = layers.length;
-    for (var i = 0; i < layersCount; ++i) {
-        layersStatus[i] = layers[i].visible;
+function saveLayersStatus(layers) {
+     var layersCount = layers.length;
+     for (var i = 0; i < layersCount; ++i) {
+        layersStatus.push(layers[i].visible);
+        if (layers[i].typename == "LayerSet") {
+            saveLayersStatus(layers[i].layers);
+        }
     }
 }
 
 /**根据蒙版信息裁剪图片**/
 function cutPictures() {
+    var layers = ad.layers;
     var history = ad.activeHistoryState;
     for (var i = 0; i < maskDatas.length; ++i) {
         var maskData = maskDatas[i];
-        hideAllLayersAndSets();
-        showLayerByName(maskData.name);
+        hideAllLayersAndSets(layers, false);
+        var layer = layers.getByName("@PandaCUT_MASKS");
+        layer.visible = false;
+        showLayerByName(layers, maskData.name, false);
         mergeAllLayers(maskData.name);
         ad.crop(maskData.rect, 0);              //裁剪
         
@@ -80,27 +87,39 @@ function cutPictures() {
 }
 
 /**隐藏所有图层，除了有@PC_NEVERHIDE标记的图层**/
-function hideAllLayersAndSets() {
+function hideAllLayersAndSets(layers, inheritFlag) {
     //app.activeDocument.layers相当于取到了当前文件layer树结构下的第一层节点
-    var layers = ad.layers;
     var layersCount = layers.length;
     for (var i = 0; i < layersCount; ++i) {
         var name = layers[i].name;
         var match = name.match("@PandaCUT_NEVERHIDE");
-        if (!match) layers[i].visible = false;
+        if (inheritFlag) match = inheritFlag;
+        if (match) layers[i].visible = true;
+        else layers[i].visible = false;
+        if (layers[i].typename == "LayerSet") {
+            layers[i].visible = true;
+            hideAllLayersAndSets(layers[i].layers, match);
+        }
     }
 }
 
 
 /**根据蒙版名字筛选需要显示的图层**/
-function showLayerByName(maskName) {
-    var layers = ad.layers;
+function showLayerByName(layers, maskName, inheritFlag) {
     var layersCount = layers.length;
     for (var i = 0; i < layersCount; ++i) {
-        var name = layers[i].name;
-        var reg = new RegExp(maskName + "($|[\s@])");
-        var match = name.match(reg);
-        if (match) layers[i].visible = true;
+        var match = inheritFlag;
+        if (inheritFlag) {
+            layers[i].visible = true;
+        } else {
+            var name = layers[i].name;
+            var reg = new RegExp(maskName + "($|[\s@])");
+            match = name.match(reg);
+            if (match) layers[i].visible = true;
+        }
+        if (layers[i].typename == "LayerSet") {
+            showLayerByName(layers[i].layers, maskName, match);
+        }
     }
 }
 
@@ -111,16 +130,17 @@ function mergeAllLayers(maskName) {
     var newLayer = ad.artLayers.add();
     newLayer.name = maskName;
     ad.activeLayer = ad.layers.getByName(maskName);
-    
     ad.mergeVisibleLayers();
 }
 
 /**重置各个图层的状态到初始状态**/
-function resetVisibleStatus() {
-    var layers = ad.layers;
+function resetVisibleStatus(layers, countObj) {
     var layersCount = layers.length;
     for (var i = 0; i < layersCount; ++i) {
-         layers[i].visible = layersStatus[i];
+         layers[i].visible = layersStatus[countObj.count++];
+         if (layers[i].typename == "LayerSet") {
+            resetVisibleStatus(layers[i].layers, countObj);
+        }
     }
 }
 
