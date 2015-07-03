@@ -1,6 +1,8 @@
 # PandaCUT 熊猫切图
 
-一个photoshop CC的javascript脚本,可以帮助任何被PS切图折磨的人
+又一个切图神器! 可以帮助photoshop的使用者进行批量切图!
+
+PandaCUT是一个photoshop cc的javascript脚本,可以帮助任何被PS切图折磨的人
 进行自动的,批量的,跨越图层的,自由的切图.
 
 
