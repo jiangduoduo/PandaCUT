@@ -1,4 +1,4 @@
-﻿var maskDatas= [];
+var maskDatas= [];
 var layersStatus = [];
 var inputFolder;
 
@@ -9,8 +9,12 @@ try {
     alert("没有名为'@PandaCUT_MASKS'的蒙版组，无法启动脚本");
 }
 
-if(maskSets)  {
-    ad.suspendHistory("cutPictures", "main()");
+if(ad.mode != DocumentMode.RGB) {
+    alert("图像模式必须为RGB才可以另存为PNG格式的文件,脚本退出！");
+} else {
+    if(maskSets)  {
+        ad.suspendHistory("cutPictures", "main()");
+    }
 }
 
 function main() {
@@ -77,8 +81,8 @@ function cutPictures() {
         ad.crop(maskData.rect, 0);              //裁剪
         
         //另存为当前文档
-        var fileOut = new File(inputFolder.fullName + "/" + maskData.name.substring(1));
-        var options = PNGSaveOptions;
+        var fileOut = new File(inputFolder.fullName + "/" + maskData.name.substring(1) + ".png");
+        var options = new PNGSaveOptions();
         var asCopy = true;
         var extensionType = Extension.LOWERCASE;
         ad.saveAs(fileOut, options, asCopy, extensionType);
